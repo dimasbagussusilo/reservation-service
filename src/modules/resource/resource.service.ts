@@ -1,27 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FindOptionsWhere, Repository } from 'typeorm';
-import { Reservation } from './entities/reservation.entity';
+import { Resource } from './entities/resource.entity';
 import {
-  CreateReservationDto,
-  FindReservationDto,
-  UpdateReservationDto,
-} from './reservation.dto';
+  CreateResourceDto,
+  FindResourceDto,
+  UpdateResourceDto,
+} from './resource.dto';
 import { ExtractSort, FilterData } from '../../utilities/helper/global.helper';
 
 @Injectable()
-export class ReservationService {
+export class ResourceService {
   constructor(
-    @InjectRepository(Reservation)
-    private reservationRepository: Repository<Reservation>,
+    @InjectRepository(Resource)
+    private resourceRepository: Repository<Resource>,
   ) {}
 
-  async create(dto: CreateReservationDto) {
-    const createData = this.reservationRepository.create(dto);
-    return await this.reservationRepository.save(createData);
+  async create(dto: CreateResourceDto) {
+    const createData = this.resourceRepository.create(dto);
+    return await this.resourceRepository.save(createData);
   }
 
-  async findAll(dto: FindReservationDto) {
+  async findAll(dto: FindResourceDto) {
     const { sort_by = '-created_at', page, limit, ...rest } = dto;
     const { sortField, sortOrder } = ExtractSort(sort_by);
     const filter = FilterData(rest);
@@ -33,7 +33,7 @@ export class ReservationService {
       skip = (page - 1) * limit || 0;
       take = limit;
     }
-    const [rows, total_row] = await this.reservationRepository.findAndCount({
+    const [rows, total_row] = await this.resourceRepository.findAndCount({
       where: filter,
       order: { [sortField]: sortOrder },
       skip: skip,
@@ -49,19 +49,19 @@ export class ReservationService {
     };
   }
 
-  async findOne(where: FindOptionsWhere<Reservation>) {
-    return await this.reservationRepository.findOne({ where });
+  async findOne(where: FindOptionsWhere<Resource>) {
+    return await this.resourceRepository.findOne({ where });
   }
 
-  async update(id: number, dto: UpdateReservationDto) {
+  async update(id: number, dto: UpdateResourceDto) {
     const existingData = await this.findOne({ id });
     Object.assign(existingData, dto);
-    await this.reservationRepository.update({ id }, existingData);
+    await this.resourceRepository.update({ id }, existingData);
     return existingData;
   }
 
   async remove(id: number) {
     const existingData = await this.findOne({ id });
-    return await this.reservationRepository.remove(existingData);
+    return await this.resourceRepository.remove(existingData);
   }
 }

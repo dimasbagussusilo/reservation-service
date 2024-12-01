@@ -6,22 +6,31 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
+export enum ResourceType {
+  Table = 'Table',
+  Room = 'Room',
+  Hall = 'Hall',
+}
+
 @Entity('resources')
 export class Resource {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  place_id: number;
 
   @Column()
-  type: string;
+  name: string;
+
+  @Column({ type: 'enum', enum: ResourceType })
+  type: ResourceType;
 
   @Column({ nullable: true })
   capacity: number;
 
-  @Column({ nullable: true })
-  location: string;
+  @Column({ type: 'boolean', default: true })
+  is_available: boolean;
 
   @CreateDateColumn()
   created_at: Date;

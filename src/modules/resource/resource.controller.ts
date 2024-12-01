@@ -12,40 +12,40 @@ import {
 import { JwtAuthGuard } from '../../utilities/guard/jwt.guard';
 import { ResourceService } from './resource.service';
 import {
-  CreateReservationDto,
-  FindReservationDto,
-  UpdateReservationDto,
-} from './reservation.dto';
+  CreateResourceDto,
+  FindResourceDto,
+  UpdateResourceDto,
+} from './resource.dto';
 
-@Controller('reservations')
-export class ReservationController {
-  constructor(private readonly reservationService: ResourceService) {}
+@Controller('resources')
+export class ResourceController {
+  constructor(private readonly resourceService: ResourceService) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async create(@Body() dto: CreateReservationDto) {
-    return await this.reservationService.create(dto);
+  async create(@Body() dto: CreateResourceDto) {
+    return await this.resourceService.create(dto);
   }
 
   @Get()
-  async findAll(@Query() dto: FindReservationDto) {
-    return await this.reservationService.findAll(dto);
+  async findAll(@Query() dto: FindResourceDto) {
+    return await this.resourceService.findAll(dto);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    return await this.reservationService.findOne({ id });
+    return await this.resourceService.findOne({ id });
   }
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
-  async update(@Param('id') id: number, @Body() dto: UpdateReservationDto) {
-    return await this.reservationService.update(id, dto);
+  async update(@Param('id') id: number, @Body() dto: UpdateResourceDto) {
+    return await this.resourceService.update(id, dto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   async remove(@Param('id') id: number) {
-    return await this.reservationService.remove(id);
+    return await this.resourceService.remove(id);
   }
 }
