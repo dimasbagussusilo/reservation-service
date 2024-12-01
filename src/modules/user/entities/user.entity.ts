@@ -1,7 +1,12 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
-enum Role {
-  Customer = 'Customer',
+export enum UserRole {
   Admin = 'Admin',
   Manager = 'Manager',
 }
@@ -11,16 +16,25 @@ export class User {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ name: 'email', type: 'varchar', unique: true })
+  @Column({ type: 'varchar' })
+  name: string;
+
+  @Column({ type: 'varchar', unique: true })
   email: string;
 
-  @Column({ name: 'password', type: 'varchar' })
+  @Column({ type: 'varchar' })
   password: string;
 
   @Column({
     name: 'role',
     type: 'enum',
-    enum: Role,
+    enum: UserRole,
   })
-  role: Role;
+  role: UserRole;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
