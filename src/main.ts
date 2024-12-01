@@ -19,7 +19,7 @@ async function bootstrap() {
     'utf-8',
   );
   const document = YAML.load(swaggerSpec); // Use YAML.load instead of YAML.parse
-  SwaggerModule.setup('api', app, document as any);
+  SwaggerModule.setup('/', app, document as any);
 
   app.use(helmet());
   app.use(json({ limit: '50mb' }));

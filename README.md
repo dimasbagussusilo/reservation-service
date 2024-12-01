@@ -1,73 +1,137 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# Reservation Service API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project provides an API for managing reservations, customers, places, resources, and authentication. Below is the detailed guide to help you use and understand the API.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+---
 
-## Description
+## Table of Contents
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Getting Started](#getting-started)
+    - [Installation](#installation)
+    - [Run the Server](#run-the-server)
+4. [API Endpoints](#api-endpoints)
+    - [Authentication](#authentication)
+    - [Customer Management](#customer-management)
+    - [Place Management](#place-management)
+    - [Resource Management](#resource-management)
+    - [Reservation Management](#reservation-management)
+5. [Authentication](#authentication)
 
-## Installation
+---
 
-```bash
-$ npm install
-```
+## Overview
 
-## Running the app
+The Reservation Service API is designed to facilitate the creation and management of reservations. It supports CRUD operations for customers, places, and resources, along with user authentication.
 
-```bash
-# development
-$ npm run start
+---
 
-# watch mode
-$ npm run start:dev
+## Features
 
-# production mode
-$ npm run start:prod
-```
+- User Authentication with JWT.
+- Customer management with filtering and pagination.
+- Management of places and resources.
+- Endpoints for creating and managing reservations.
 
-## Test
+---
 
-```bash
-# unit tests
-$ npm run test
+## Getting Started
 
-# e2e tests
-$ npm run test:e2e
+### Installation
 
-# test coverage
-$ npm run test:cov
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/dimasbagussusilo/reservation-service.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd reservation-service
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-## Support
+### Run the Server
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Start the development server:
+   ```bash
+   npm run start
+   ```
+2. Access the API at:
+   ```
+   http://localhost:3000
+   ```
 
-## Stay in touch
+---
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## API Endpoints
+
+### Authentication
+
+| Method | Endpoint          | Description |
+|--------|--------------------|-------------|
+| POST   | `/auth/login`      | User login  |
+| POST   | `/auth/register`   | User registration |
+
+---
+
+### Customer Management
+
+| Method | Endpoint             | Description              |
+|--------|-----------------------|--------------------------|
+| GET    | `/customers`          | Retrieve all customers   |
+| POST   | `/customers`          | Create a new customer    |
+| GET    | `/customers/{id}`     | Retrieve a specific customer |
+| PUT    | `/customers/{id}`     | Update a specific customer |
+| DELETE | `/customers/{id}`     | Delete a specific customer |
+
+---
+
+### Place Management
+
+| Method | Endpoint             | Description           |
+|--------|-----------------------|-----------------------|
+| GET    | `/places`            | Retrieve all places   |
+| POST   | `/places`            | Create a new place    |
+| GET    | `/places/{id}`       | Retrieve a specific place |
+| PUT    | `/places/{id}`       | Update a specific place |
+| DELETE | `/places/{id}`       | Delete a specific place |
+
+---
+
+It seems like the table is incomplete or missing additional endpoints and details for a comprehensive resource and reservation management API. Here's an extended version with some placeholders for you to complete based on your system's requirements:
+
+---
+
+### Resource Management
+
+| Method | Endpoint               | Description                      |
+|--------|-------------------------|----------------------------------|
+| GET    | `/resources`           | Retrieve all resources           |
+| POST   | `/resources`           | Create a new resource            |
+| GET    | `/resources/:id`       | Retrieve a specific resource     |
+| PUT    | `/resources/:id`       | Update a specific resource       |
+| DELETE | `/resources/:id`       | Delete a specific resource       |
+
+---
+
+### Reservation Management
+
+| Method | Endpoint                  | Description                                  |
+|--------|----------------------------|----------------------------------------------|
+| GET    | `/reservations`           | Retrieve all reservations                    |
+| POST   | `/reservations`           | Create a new reservation                     |
+| GET    | `/reservations/:id`       | Retrieve a specific reservation              |
+| PUT    | `/reservations/:id`       | Update a specific reservation                |
+| DELETE | `/reservations/:id`       | Cancel a specific reservation                |
+| GET    | `/reservations/resource/:id` | Retrieve reservations for a specific resource |
+
+---
 
 ## License
 
-Nest is [MIT licensed](LICENSE).
+This project is licensed under the [MIT License].
+
+Feel free to contribute or provide feedback!
