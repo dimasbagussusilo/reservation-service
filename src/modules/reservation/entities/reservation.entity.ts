@@ -2,26 +2,26 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  ManyToOne,
-  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Customer } from 'src/modules/customer/entities/customer.entity';
-import { Resource } from 'src/modules/resources/entities/resource.entity';
+
+export enum ReservationStatus {
+  Pending = 'Pending',
+  Confirmed = 'Confirmed',
+  Cancelled = 'Cancelled',
+}
 
 @Entity('reservations')
 export class Reservation {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Customer, (customer) => customer.id)
-  @JoinColumn()
-  customer_id: Customer;
+  @Column()
+  customer_id: number;
 
-  @ManyToOne(() => Resource, (resource) => resource.id)
-  @JoinColumn()
-  resource_id: Resource;
+  @Column()
+  resource_id: number;
 
   @Column({ type: 'timestamp' })
   start_time: Date;
@@ -31,9 +31,9 @@ export class Reservation {
 
   @Column({
     type: 'enum',
-    enum: ['Pending', 'Confirmed', 'Cancelled'],
+    enum: ReservationStatus,
   })
-  status: 'Pending' | 'Confirmed' | 'Cancelled';
+  status: ReservationStatus;
 
   @CreateDateColumn()
   created_at: Date;

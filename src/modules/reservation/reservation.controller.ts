@@ -10,42 +10,42 @@ import {
   Put,
 } from '@nestjs/common';
 import { JwtAuthGuard } from '../../utilities/guard/jwt.guard';
-import { CustomerService } from './customer.service';
+import { ReservationService } from './reservation.service';
 import {
-  CreateCustomerDto,
-  FindCustomerDto,
-  UpdateCustomerDto,
-} from './customer.dto';
+  CreateReservationDto,
+  FindReservationDto,
+  UpdateReservationDto,
+} from './reservation.dto';
 
-@Controller('customers')
-export class CustomerController {
-  constructor(private readonly customerService: CustomerService) {}
+@Controller('reservations')
+export class ReservationController {
+  constructor(private readonly reservationService: ReservationService) {}
 
   @Post()
   @UseGuards(JwtAuthGuard)
-  async create(@Body() dto: CreateCustomerDto) {
-    return await this.customerService.create(dto);
+  async create(@Body() dto: CreateReservationDto) {
+    return await this.reservationService.create(dto);
   }
 
   @Get()
-  async findAll(@Query() dto: FindCustomerDto) {
-    return await this.customerService.findAll(dto);
+  async findAll(@Query() dto: FindReservationDto) {
+    return await this.reservationService.findAll(dto);
   }
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    return await this.customerService.findOne({ id });
+    return await this.reservationService.findOne({ id });
   }
 
   @Put(':id')
   @UseGuards(JwtAuthGuard)
-  async update(@Param('id') id: number, @Body() dto: UpdateCustomerDto) {
-    return await this.customerService.update(id, dto);
+  async update(@Param('id') id: number, @Body() dto: UpdateReservationDto) {
+    return await this.reservationService.update(id, dto);
   }
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   async remove(@Param('id') id: number) {
-    return await this.customerService.remove(id);
+    return await this.reservationService.remove(id);
   }
 }

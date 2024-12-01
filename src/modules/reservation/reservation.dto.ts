@@ -1,26 +1,46 @@
-import { IsString, IsDateString, IsInt, IsNotEmpty } from 'class-validator';
+import {
+  IsDateString,
+  IsNotEmpty,
+  IsOptional,
+  IsEnum,
+  IsNumber,
+} from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
+import { ReservationStatus } from './entities/reservation.entity';
 
 export class CreateReservationDto {
-  @IsInt()
+  @IsNumber()
   @IsNotEmpty()
-  userId: number;
+  customer_id: number;
 
-  @IsInt()
+  @IsNumber()
   @IsNotEmpty()
-  customerId: number;
-
-  @IsInt()
-  @IsNotEmpty()
-  resourceId: number;
+  resource_id: number;
 
   @IsDateString()
   @IsNotEmpty()
-  reservation_date: string;
+  start_time: string;
 
-  @IsString()
+  @IsDateString()
   @IsNotEmpty()
-  status: string;
+  end_time: string;
+
+  @IsEnum(ReservationStatus)
+  @IsOptional()
+  status: ReservationStatus;
 }
 
 export class UpdateReservationDto extends PartialType(CreateReservationDto) {}
+
+export class FindReservationDto {
+  @IsOptional()
+  sort_by?: string;
+
+  @IsOptional()
+  page?: number;
+
+  @IsOptional()
+  limit?: number;
+
+  [key: string]: any;
+}
