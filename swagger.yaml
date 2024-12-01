@@ -1,0 +1,683 @@
+openapi: 3.0.0
+info:
+  title: Reservation Service
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Auth
+  - name: Customer
+  - name: Place
+  - name: Resource
+  - name: Reservation
+paths:
+  /auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: admin@reservation.com
+                password: password
+      responses:
+        '201':
+          description: Login Successfully
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  access_token: >-
+                    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImRic0BtYWlsLmNvbSIsInN1YiI6NSwiaWF0IjoxNzMzMDE3MzA2LCJleHAiOjE3MzMxMDM3MDZ9.m4AU1LSkdSMfoqStM5B_ctg5I3kOn59OGxvig4J7zOg
+                meta:
+                  status: true
+                  status_code: 201
+                  self_url: /auth/login
+                  timestamp: '2024-12-01T01:41:46.169Z'
+  /auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Register
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Admin
+                email: admin@reservation.com
+                password: password
+                role: Admin
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  name: Admin
+                  email: admin@reservation.com
+                  role: Admin
+                  id: 1
+                  created_at: '2024-11-30T22:40:41.876Z'
+                  updated_at: '2024-11-30T22:40:41.876Z'
+                meta:
+                  status: true
+                  status_code: 201
+                  self_url: /auth/register
+                  timestamp: '2024-12-01T05:40:41.817Z'
+  /customers:
+    get:
+      tags:
+        - Customer
+      summary: Get All
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+          example: '-created_at'
+        - name: created_at[gte]
+          in: query
+          schema:
+            type: string
+          example: '2024-11-30T22:59:06.553Z'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data: []
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: >-
+                    /customers?limit=10&page=1&sort_by=-created_at&created_at[gte]=2024-11-30T22:59:06.554Z
+                  timestamp: '2024-12-01T07:39:59.169Z'
+                  page: 1
+                  total_page: 0
+                  limit: 10
+                  total_row: 0
+    post:
+      tags:
+        - Customer
+      summary: Create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Zain
+                phone: '+6285771432090'
+                address: Bogor Gading Residence, Blok G No. 99
+                date_of_birth: '2017-11-30'
+      security:
+        - noauthAuth: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  name: Zain
+                  phone: '+6285771432090'
+                  address: Bogor Gading Residence, Blok G No. 99
+                  date_of_birth: '2017-11-30'
+                  id: 1
+                  created_at: '2024-11-30T22:59:06.553Z'
+                  updated_at: '2024-11-30T22:59:06.553Z'
+                meta:
+                  status: true
+                  status_code: 201
+                  self_url: /customers
+                  timestamp: '2024-12-01T05:59:06.545Z'
+  /customers/1:
+    get:
+      tags:
+        - Customer
+      summary: Get One
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  id: 1
+                  name: Zain
+                  phone: '+6285771432090'
+                  address: Bogor Gading Residence, Blok G No. 99
+                  date_of_birth: '2017-11-30'
+                  created_at: '2024-11-30T22:59:06.553Z'
+                  updated_at: '2024-11-30T22:59:06.553Z'
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: /customers/1
+                  timestamp: '2024-12-01T06:00:44.043Z'
+    put:
+      tags:
+        - Customer
+      summary: Update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Zain
+                phone: '+6285771432090'
+                address: Bogor Gading Residence, Blok G No. 99
+                date_of_birth: '2017-11-30'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Customer
+      summary: Delete
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /places:
+    get:
+      tags:
+        - Place
+      summary: Get All
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+          example: '-created_at'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  - id: 1
+                    name: Sunset Restaurant
+                    type: Restaurant
+                    description: A beautiful hotel in Bali
+                    latitude: '0'
+                    longitude: '0'
+                    open_time: '08:00:00'
+                    close_time: '17:00:00'
+                    created_at: '2024-12-01T07:15:49.398Z'
+                    updated_at: '2024-12-01T07:15:49.398Z'
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: /places?limit=10&page=1&sort_by=-created_at
+                  timestamp: '2024-12-01T14:36:39.416Z'
+                  page: 1
+                  total_page: 1
+                  limit: 10
+                  total_row: 1
+    post:
+      tags:
+        - Place
+      summary: Create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Sunset Restaurant
+                description: A beautiful hotel in Bali
+                type: Restaurant
+                latitude: '0'
+                longitude: '0'
+                open_time: '08:00'
+                close_time: '17:00'
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  name: Sunset Restaurant
+                  type: Restaurant
+                  description: A beautiful hotel in Bali
+                  latitude: '0'
+                  longitude: '0'
+                  open_time: '08:00'
+                  close_time: '17:00'
+                  id: 1
+                  created_at: '2024-12-01T07:15:49.398Z'
+                  updated_at: '2024-12-01T07:15:49.398Z'
+                meta:
+                  status: true
+                  status_code: 201
+                  self_url: /places
+                  timestamp: '2024-12-01T14:15:49.382Z'
+  /places/1:
+    get:
+      tags:
+        - Place
+      summary: Get One
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    put:
+      tags:
+        - Place
+      summary: Update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Zain
+                phone: '+6285771432090'
+                address: Bogor Gading Residence, Blok G No. 99
+                date_of_birth: '2017-11-30'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Place
+      summary: Delete
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /resources:
+    get:
+      tags:
+        - Resource
+      summary: Get All
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+          example: '-created_at'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  - id: 1
+                    name: A2
+                    type: Table
+                    capacity: 4
+                    is_available: true
+                    created_at: '2024-11-30T23:53:46.157Z'
+                    updated_at: '2024-11-30T23:53:46.157Z'
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: /resources?limit=10&page=1&sort_by=-created_at
+                  timestamp: '2024-12-01T06:53:59.072Z'
+                  page: 1
+                  total_page: 1
+                  limit: 10
+                  total_row: 1
+    post:
+      tags:
+        - Resource
+      summary: Create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                place_id: 1
+                name: A3
+                capacity: 4
+                type: Table
+      security:
+        - bearerAuth: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  place_id: 1
+                  name: A3
+                  type: Table
+                  capacity: 4
+                  id: 1
+                  is_available: true
+                  created_at: '2024-12-01T07:36:50.634Z'
+                  updated_at: '2024-12-01T07:36:50.634Z'
+                meta:
+                  status: true
+                  status_code: 201
+                  self_url: /resources
+                  timestamp: '2024-12-01T14:36:50.596Z'
+  /resources/1:
+    get:
+      tags:
+        - Resource
+      summary: Get One
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  id: 1
+                  name: A2
+                  type: Table
+                  capacity: 4
+                  is_available: true
+                  created_at: '2024-11-30T23:53:46.157Z'
+                  updated_at: '2024-11-30T23:53:46.157Z'
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: /resources/1
+                  timestamp: '2024-12-01T06:55:40.947Z'
+    put:
+      tags:
+        - Resource
+      summary: Update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Zain
+                phone: '+6285771432090'
+                address: Bogor Gading Residence, Blok G No. 99
+                date_of_birth: '2017-11-30'
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Resource
+      summary: Delete
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /reservations:
+    get:
+      tags:
+        - Reservation
+      summary: Get All
+      security:
+        - noauthAuth: []
+      parameters:
+        - name: limit
+          in: query
+          schema:
+            type: integer
+          example: '10'
+        - name: page
+          in: query
+          schema:
+            type: integer
+          example: '1'
+        - name: sort_by
+          in: query
+          schema:
+            type: string
+          example: '-created_at'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  - id: 1
+                    customer_id: 1
+                    resource_id: 1
+                    start_time: '2024-12-01T05:00:00.000Z'
+                    end_time: '2024-12-01T06:00:00.000Z'
+                    status: Confirmed
+                    created_at: '2024-12-01T07:39:30.863Z'
+                    updated_at: '2024-12-01T07:39:30.863Z'
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: /reservations?limit=10&page=1&sort_by=-created_at
+                  timestamp: '2024-12-01T14:42:34.530Z'
+                  page: 1
+                  total_page: 1
+                  limit: 10
+                  total_row: 1
+    post:
+      tags:
+        - Reservation
+      summary: Create
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                customer_id: 1
+                resource_id: 1
+                start_time: '2024-12-01T12:00:00.0000'
+                end_time: '2024-12-01T13:00:00.0000'
+      security:
+        - noauthAuth: []
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  customer_id: 1
+                  resource_id: 1
+                  start_time: '2024-12-01T12:00:00.0000'
+                  end_time: '2024-12-01T13:00:00.0000'
+                  status: Pending
+                  id: 1
+                  created_at: '2024-12-01T07:39:30.863Z'
+                  updated_at: '2024-12-01T07:39:30.863Z'
+                meta:
+                  status: true
+                  status_code: 201
+                  self_url: /reservations
+                  timestamp: '2024-12-01T14:39:23.786Z'
+  /reservations/1:
+    get:
+      tags:
+        - Reservation
+      summary: Get One
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  id: 1
+                  customer_id: 1
+                  resource_id: 1
+                  start_time: '2024-12-01T05:00:00.000Z'
+                  end_time: '2024-12-01T06:00:00.000Z'
+                  status: Confirmed
+                  created_at: '2024-12-01T07:39:30.863Z'
+                  updated_at: '2024-12-01T07:39:30.863Z'
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: /reservations/1
+                  timestamp: '2024-12-01T14:42:45.644Z'
+    put:
+      tags:
+        - Reservation
+      summary: Update
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                status: Confirmed
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  id: 1
+                  customer_id: 1
+                  resource_id: 1
+                  start_time: '2024-12-01T05:00:00.000Z'
+                  end_time: '2024-12-01T06:00:00.000Z'
+                  status: Confirmed
+                  created_at: '2024-12-01T07:39:30.863Z'
+                  updated_at: '2024-12-01T07:39:30.863Z'
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: /reservations/1
+                  timestamp: '2024-12-01T14:41:08.832Z'
+    delete:
+      tags:
+        - Reservation
+      summary: Delete
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json: {}
+  /health:
+    get:
+      tags:
+        - default
+      summary: Health Check
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                data:
+                  status: OK
+                  message: Application is healthy
+                meta:
+                  status: true
+                  status_code: 200
+                  self_url: /health
+                  timestamp: '2024-12-01T16:01:47.409Z'
