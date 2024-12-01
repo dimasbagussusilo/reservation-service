@@ -31,7 +31,7 @@ paths:
                 password: password
       responses:
         '201':
-          description: Login Successfully
+          description: Created
           content:
             application/json:
               schema:
@@ -164,11 +164,18 @@ paths:
                   status_code: 201
                   self_url: /customers
                   timestamp: '2024-12-01T05:59:06.545Z'
-  /customers/1:
+  /customers/{id}:
     get:
       tags:
         - Customer
       summary: Get One
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: OK
@@ -194,6 +201,13 @@ paths:
       tags:
         - Customer
       summary: Update
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       requestBody:
         content:
           application/json:
@@ -205,23 +219,30 @@ paths:
                 address: Bogor Gading Residence, Blok G No. 99
                 date_of_birth: '2017-11-30'
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       responses:
         '200':
           description: Successful response
           content:
-            application/json: {}
+            application/json: { }
     delete:
       tags:
         - Customer
       summary: Delete
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       security:
-        - bearerAuth: []
+        - bearerAuth: [ ]
       responses:
         '200':
           description: Successful response
           content:
-            application/json: {}
+            application/json: { }
   /places:
     get:
       tags:
@@ -316,11 +337,18 @@ paths:
                   status_code: 201
                   self_url: /places
                   timestamp: '2024-12-01T14:15:49.382Z'
-  /places/1:
+  /places/{id}:
     get:
       tags:
         - Place
       summary: Get One
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: Successful response
@@ -342,6 +370,13 @@ paths:
                 date_of_birth: '2017-11-30'
       security:
         - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: Successful response
@@ -353,6 +388,13 @@ paths:
       summary: Delete
       security:
         - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: Successful response
@@ -444,11 +486,18 @@ paths:
                   status_code: 201
                   self_url: /resources
                   timestamp: '2024-12-01T14:36:50.596Z'
-  /resources/1:
+  /resources/{id}:
     get:
       tags:
         - Resource
       summary: Get One
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: OK
@@ -484,6 +533,13 @@ paths:
                 phone: '+6285771432090'
                 address: Bogor Gading Residence, Blok G No. 99
                 date_of_birth: '2017-11-30'
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: Successful response
@@ -495,6 +551,13 @@ paths:
       summary: Delete
       security:
         - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: Successful response
@@ -587,11 +650,18 @@ paths:
                   status_code: 201
                   self_url: /reservations
                   timestamp: '2024-12-01T14:39:23.786Z'
-  /reservations/1:
+  /reservations/{id}:
     get:
       tags:
         - Reservation
       summary: Get One
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: OK
@@ -627,6 +697,13 @@ paths:
                 status: Confirmed
       security:
         - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: OK
@@ -655,6 +732,13 @@ paths:
       summary: Delete
       security:
         - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true
+          example: '1'
       responses:
         '200':
           description: Successful response
