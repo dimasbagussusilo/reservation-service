@@ -2,29 +2,33 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  OneToOne,
-  JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
-import { User } from 'src/modules/users/entities/user.entity';
 
 @Entity('customers')
 export class Customer {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @OneToOne(() => User)
-  @JoinColumn({ name: 'user_id' })
-  user: User;
-
-  @Column({ name: 'name' })
+  @Column()
   name: string;
 
-  @Column({ name: 'phone' })
+  @Column()
+  email: string;
+
+  @Column()
   phone: string;
 
-  @Column({ name: 'address', nullable: true })
+  @Column({ nullable: true })
   address: string;
 
-  @Column({ name: 'date_of_birth', type: 'date', nullable: true })
-  dateOfBirth: Date;
+  @Column({ type: 'date', nullable: true })
+  date_of_birth: Date;
+
+  @CreateDateColumn()
+  created_at: Date;
+
+  @UpdateDateColumn()
+  updated_at: Date;
 }
