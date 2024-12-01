@@ -1,39 +1,44 @@
 import {
   IsString,
   IsNotEmpty,
-  IsNumber,
   IsOptional,
-  IsEnum, IsDateString,
+  IsEnum,
+  IsLatitude,
+  IsLongitude,
 } from 'class-validator';
 import { PartialType } from '@nestjs/mapped-types';
-import { ResourceType } from './entities/place.entity';
+import { PlaceType } from './entities/place.entity';
 
-export class CreateResourceDto {
+export class CreatePlaceDto {
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @IsNumber()
-  capacity: number;
-
-  @IsEnum(ResourceType)
-  type: ResourceType;
-
+  @IsString()
   @IsOptional()
-  is_available?: boolean;
+  description: string;
 
-  @IsDateString()
+  @IsLatitude()
+  latitude: string;
+
+  @IsLongitude()
+  longitude: string;
+
+  @IsEnum(PlaceType)
+  type: PlaceType;
+
+  @IsString()
   @IsNotEmpty()
   open_time: string;
 
-  @IsDateString()
+  @IsString()
   @IsNotEmpty()
   close_time: string;
 }
 
-export class UpdateResourceDto extends PartialType(CreateResourceDto) {}
+export class UpdatePlaceDto extends PartialType(CreatePlaceDto) {}
 
-export class FindResourceDto {
+export class FindPlaceDto {
   @IsOptional()
   sort_by?: string;
 

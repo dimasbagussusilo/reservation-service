@@ -6,33 +6,36 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-export enum ResourceType {
-  Table = 'Table',
-  Room = 'Room',
-  Hall = 'Hall',
+export enum PlaceType {
+  Restaurant = 'Restaurant',
+  Hotel = 'Hotel',
+  Sport_Area = 'Sport_Area',
 }
 
-@Entity('resources')
-export class Resource {
+@Entity('places')
+export class Place {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
   name: string;
 
-  @Column({ type: 'enum', enum: ResourceType })
-  type: ResourceType;
+  @Column({ type: 'enum', enum: PlaceType })
+  type: PlaceType;
 
-  @Column({ nullable: true })
-  capacity: number;
+  @Column()
+  description: string;
 
-  @Column({ type: 'boolean', default: true })
-  is_available: boolean;
+  @Column()
+  latitude: string;
 
-  @Column({ type: 'timestamp' })
+  @Column()
+  longitude: string;
+
+  @Column({ type: 'time' })
   open_time: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'time' })
   close_time: Date;
 
   @CreateDateColumn()
