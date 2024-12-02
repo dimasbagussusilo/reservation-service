@@ -17,7 +17,7 @@ This project provides an API for managing reservations, customers, places, resou
     - [Place Management](#place-management)
     - [Resource Management](#resource-management)
     - [Reservation Management](#reservation-management)
-5. [Authentication](#authentication)
+5. [Database Schema](#database-schema)
 
 ---
 
@@ -127,6 +127,11 @@ It seems like the table is incomplete or missing additional endpoints and detail
 | PUT    | `/reservations/:id`       | Update a specific reservation                |
 | DELETE | `/reservations/:id`       | Cancel a specific reservation                |
 | GET    | `/reservations/resource/:id` | Retrieve reservations for a specific resource |
+
+---
+
+## Database Schema
+![db diagram](Reservation%20Service%20Diagram.png)
 
 ---
 
