@@ -23,10 +23,10 @@ export class Reservation {
   @Column()
   resource_id: number;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   start_time: Date;
 
-  @Column({ type: 'timestamp' })
+  @Column({ type: 'timestamp', nullable: true })
   end_time: Date;
 
   @Column({
