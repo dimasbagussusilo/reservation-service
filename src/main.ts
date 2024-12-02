@@ -33,7 +33,7 @@ async function bootstrap() {
   app.useGlobalFilters(new GlobalExceptionsFilter());
   app.useGlobalInterceptors(new TransformInterceptor());
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(process.env.PORT || 8080);
 }
 
 bootstrap();

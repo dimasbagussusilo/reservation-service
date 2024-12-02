@@ -1268,7 +1268,7 @@
 		"variable": [
 			{
 				"key": "BASE_URL",
-				"value": "http://localhost:3000",
+				"value": "https://seal-app-tb7qs.ondigitalocean.app",
 				"type": "string"
 			},
 			{
