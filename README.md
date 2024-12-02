@@ -61,7 +61,7 @@ The Reservation Service API is designed to facilitate the creation and managemen
    ```
 2. Access the API at:
    ```
-   https://seal-app-tb7qs.ondigitalocean.app
+   http://localhost:8080
    ```
 
 ---
